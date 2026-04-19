@@ -1,21 +1,21 @@
 version: 1
 project:
-  title: Jane Doe
-  description: Personal website of Jane Doe, Assistant Professor at Example University, building open-source tools for data science.
+  title: 李广
+  description: 李广的个人简历网站，聚焦 AI 城市空间分析、住宅用地价格评估、空间数据处理与技术项目管理。
   # thumbnail: images/profile-thumbnail.webp
   # authors:
-  #   - name: Jane Doe
-  #     email: jane.doe@example.com
-  #     orcid: 0000-0000-0000-0000
+  #   - name: 李广
+  #     email: 841143092@qq.com
   #     url: https://example.com
   #     affiliations:
-  #       - Example University
+  #       - South China Agricultural University
   copyright: '2026'
   keywords:
-    - Data Science
-    - Open-source Software
-    - Machine Learning
-  # github: username/repo
+    - AI
+    - 空间数据
+    - 深度学习
+    - 技术项目管理
+    - WebGIS
   exclude:
     - _build
     - Thumbs.db
@@ -35,15 +35,11 @@ project:
   toc:
     - file: index.md
     - file: pages/about.md
-    - file: pages/research.md
     - file: pages/software.md
-    - file: pages/teaching.md
-    - file: pages/talks.md
-    - file: pages/awards.md
     - file: pages/services.md
+    - file: pages/research.md
+    - file: pages/awards.md
     - file: pages/contact.md
-    - file: pages/news.md
-    - file: pages/blog.md
     - pattern: blog/*.md
       hidden: true
 site:
@@ -52,16 +48,13 @@ site:
     logo_dark: logo.png
     favicon: fav.ico
     style: custom.css
-    # analytics_google: G-XXXXXXXXXX
     folders: true
-  actions:
-    - title: RSS
-      url: https://opengeos.org/myst-cv-template/rss.xml
-  template: book-theme
+  template: .local_templates/book-theme-main/template.yml
   parts:
     primary_sidebar_footer: ''
     footer: |
       [CV (PDF)](cv.pdf) |
-      [GitHub](https://github.com/username) |
-      [LinkedIn](https://www.linkedin.com/in/username) |
-      [Twitter](https://twitter.com/username)
+      [Email](mailto:841143092@qq.com) |
+      [电话](tel:18617027258) |
+      深圳 |
+      华南农业大学

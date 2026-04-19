@@ -1,33 +1,39 @@
 ---
-title: About
-description: Biography, education, and academic appointments of Jane Doe.
+title: 个人简介
+description: 李广的个人简介、求职方向与教育经历。
 keywords:
-  - About
-  - Biography
-  - Education
-  - Appointments
+  - 个人简介
+  - 教育经历
+  - 求职方向
 ---
 
-# About
+# 个人简介
 
-Dr. Jane Doe is an Assistant Professor in the Department of Computer Science at Example University. Her research focuses on developing open-source tools for data science and machine learning. She is the creator and maintainer of several widely used open-source Python packages. Dr. Doe's work bridges software engineering, data science, and artificial intelligence to make large-scale data analytics more accessible, reproducible, and intelligent.
-
----
-
-## Education
-
-| Year | Degree | Institution | Dissertation/Thesis |
-|------|--------|-------------|---------------------|
-| 2020 | **Ph.D.** in Computer Science | Example University, USA | *Scalable machine learning for large-scale data analysis* |
-| 2016 | **M.S.** in Computer Science | Example University, USA | *Distributed computing frameworks for data-intensive applications* |
-| 2014 | **B.S.** in Computer Science | Example College, USA | *Efficient algorithms for graph processing* |
+我目前就读于华南农业大学土地资源管理硕士，研究与项目实践主要围绕 AI+智能城市空间大数据感知、住宅用地价格评估、土地利用识别与地理空间建模展开。除校内研究外，我也长期在项目一线参与需求对接、技术方案设计、数据库建设、阶段汇报与 WebGIS 原型开发，兼具研究视角和业务落地经验。
 
 ---
 
-## Appointments
+## 求职方向
 
-| Period | Position |
-|--------|----------|
-| 2023--present | Assistant Professor, Department of Computer Science, Example University |
-| 2020--2023 | Postdoctoral Researcher, Data Science Lab, Example Institute |
-| 2018--2020 | Research Assistant, Department of Computer Science, Example University |
+| 方向 | 城市 | 薪资预期 | 当前定位 |
+|------|------|----------|----------|
+| 技术项目管理 | 深圳 | 11--16K | 可参与 AI、GIS、数据平台类项目 |
+| 深度学习工程师 | 深圳 | 11--16K | 偏空间数据、评估建模与可解释分析 |
+| 空间数据分析 | 深圳 | 11--16K | 偏城市数据、地价评估与 WebGIS |
+
+---
+
+## 教育经历
+
+| 时间 | 学校 | 学位 / 专业 | 说明 |
+|------|------|-------------|------|
+| 2024--2027 | 华南农业大学 | 硕士，土地资源管理 | 专业排名前 20%，主修土地资源学、土地管理学、地理信息系统、土地信息系统、深度学习建模 |
+| 2020--2024 | 华南农业大学 | 本科，地理信息科学 | 专业排名前 40%，主修空间分析、ArcGIS、软件工程、空间数据库、地图学 |
+
+---
+
+## 个人优势
+
+1. 研究与实务结合紧密，持续围绕城市空间数据、机器学习建模与 GIS 业务场景开展训练和落地。
+2. 熟悉 PyTorch、XGBoost、随机森林、FNN、CNN、Transformer、图神经网络，并能结合 SHAP 等 XAI 方法做可解释分析。
+3. 有驻场甲方项目经验，能够独立推进需求沟通、技术方案设计、数据库建设、阶段汇报和简易 WebGIS 原型开发。

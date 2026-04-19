@@ -1,61 +1,29 @@
 ---
-title: Teaching
-description: Courses taught and student mentoring.
+title: 专业技能
+description: 李广在 GIS、空间数据与 AI 建模方向的技能概览。
 keywords:
-  - Teaching
-  - Courses
-  - Mentoring
+  - 专业技能
+  - GIS
+  - AI 建模
 ---
 
-# Teaching
+# 专业技能
 
-Dr. Doe teaches courses in computer science and data science at Example University.
+## GIS 与空间数据
 
-## Self-Paced Online Courses
-
-| Course | Title | Website |
-|--------|-------|---------|
-| CS 101 | Introduction to Programming | [Website](https://example.com/cs101) |
-| DS 201 | Data Science Fundamentals | [Website](https://example.com/ds201) |
+- 精通 ArcGIS、ArcGIS Pro，熟悉空间数据分析、处理与建库流程。
+- 具备较强的空间数据思维和地图表达能力，能够支持 WebGIS 展示和成果可视化。
 
 ---
 
-## Courses at Example University
+## AI 建模
 
-| Course | Title | Semesters |
-|--------|-------|-----------|
-| CS 301 | Machine Learning | Fall 2023, Fall 2024, Fall 2025 |
-| CS 401 | Deep Learning | Spring 2024, Spring 2025 |
-| DS 501 | Advanced Data Science | Fall 2024 |
+- 熟悉 PyTorch 技术框架，具备分类、回归、目标检测等机器学习建模能力。
+- 熟悉 SHAP 可解释分析技术，能够支持模型解释与业务决策表达。
 
 ---
 
-## Courses at Previous University
+## 开发与协作
 
-| Course | Title | Semesters |
-|--------|-------|-----------|
-| CS 110 | Programming Fundamentals | Fall 2020, Spring 2021 |
-| CS 210 | Data Structures | Fall 2021, Spring 2022 |
-
----
-
-## Mentoring
-
-### Current Students
-
-| Name | Program | Topic |
-|------|---------|-------|
-| Alice Smith | Ph.D. | Machine learning for scientific discovery |
-| Bob Johnson | M.S. | Cloud computing optimization |
-
-### Past Students
-
-:::{dropdown} Graduated
-:open:
-
-| Name | Program | Topic | Year |
-|------|---------|-------|------|
-| Carol Williams | M.S. | Natural language processing | 2025 |
-| David Brown | M.S. | Computer vision applications | 2024 |
-
-:::
+- 熟悉 Python、Anaconda、Vue 等工具链，能完成内网环境配置、模型实验和简易前端展示。
+- 具备需求对接、汇报材料撰写、项目沟通和阶段性成果表达能力。

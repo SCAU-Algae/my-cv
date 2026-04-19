@@ -1,89 +1,59 @@
 ---
-title: Software
-description: Open-source software projects created and maintained by Jane Doe.
+title: 项目经历
+description: 李广在地价评估建模、城市土地利用识别和 WebGIS 方向的项目经历。
 keywords:
-  - Open-source Software
-  - Python
-  - Data Science
+  - 项目经历
+  - 深度学习
+  - WebGIS
 ---
 
-# Open-Source Software
+# 项目经历
 
-Dr. Doe is the creator and maintainer of several open-source software packages for data science and machine learning.
+以下项目覆盖了模型研究、系统原型开发和成果表达三个层面，既包括业务驱动型项目，也包括论文导向型研究。
 
 ---
 
-## Featured Projects
+## 项目概览
 
-::::{grid} 2 2 4 4
+::::{grid} 1 1 2 2
 
-:::{card}
-:link: https://mystmd.org
-![mystmd](images/myst.webp)
-+++
-**MyST**
+:::{card} 基于人工智能的深圳市住宅用地价格评估研究
+:link: /pages/software
+时间：2024.10--至今
+
+技术栈：Python、PyTorch、ArcGIS、Vue、SHAP
 :::
 
-:::{card}
-:link: https://jupyterbook.org
-![jupyter-book](images/jupyter-book.webp)
-+++
-**Jupyter Book**
-:::
+:::{card} Enhancing Urban Land Use Identification Using Urban Morphology
+:link: /pages/research
+时间：2023.06--2023.12
 
-:::{card}
-:link: https://jupyter.org
-![jupyter](images/jupyter.webp)
-+++
-**Jupyter**
-:::
-
-:::{card}
-:link: https://python.org
-![python](images/python.webp)
-+++
-**Python**
+方向：城市形态分析、土地利用识别、论文写作
 :::
 
 ::::
 
 ---
 
-## Python Packages
+## 重点项目
 
-::::{grid} 1 2 3 3
+### 基于人工智能的深圳市住宅用地价格评估研究
 
-:::{card} project-alpha
-:link: https://github.com/username/project-alpha
-A Python package for data analysis and visualization
-:::
+**时间：** 2024.10--至今
 
-:::{card} project-beta
-:link: https://github.com/username/project-beta
-Machine learning utilities for scientific computing
-:::
+**角色：** 主要负责人，主要开发者
 
-:::{card} project-gamma
-:link: https://github.com/username/project-gamma
-Cloud computing tools for large-scale data processing
-:::
+- 基于深圳市不动产评估中心地价评估部积累的历年评估数据，建立住宅用地价格机器学习评估模型，提高地价评估效率并降低传统专家打分的主观性。
+- 负责竞争性谈判文书撰写、内网环境开发配置、历史数据可用性评估与清洗、模型选型与可靠性测度、SHAP 可解释分析建模、超参数调优和简易 WebGIS 展示系统开发。
+- 独立跟进甲方需求，定期汇报项目进度，输出研究报告、工作报告与汇报 PPT，并配合 WebGIS 项目组完成空间数据与功能集成。
+- 独立完成人工智能住宅用地地价评估模型一套，并形成可视化操作原型和配套研究材料。
 
-::::
+### Enhancing Urban Land Use Identification Using Urban Morphology
 
----
+**时间：** 2023.06--2023.12
 
-## Web Apps
+**角色：** 共同第一作者
 
-::::{grid} 1 2 3 3
-
-:::{card} data-dashboard
-:link: https://github.com/username/data-dashboard
-Interactive data visualization dashboard
-:::
-
-:::{card} ml-explorer
-:link: https://github.com/username/ml-explorer
-Machine learning model exploration tool
-:::
-
-::::
+- 面向精细尺度城市土地利用信息获取成本高、效率低的问题，探索利用城市形态特征实现低成本、高效率的土地利用功能识别。
+- 负责三维空间纵向识别算法的设计与实现、精度验证以及论文初稿撰写。
+- 项目成果发表于 *Land* 2024, 13, 761，并为后续城市土地利用识别研究提供了可复用的方法基础。

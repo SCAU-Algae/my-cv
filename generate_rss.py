@@ -9,6 +9,7 @@ Usage: python generate_rss.py
 
 from __future__ import annotations
 
+import os
 import re
 import shutil
 from datetime import date as date_cls, datetime, time, timezone
@@ -17,12 +18,29 @@ from pathlib import Path
 import yaml
 from feedgen.feed import FeedGenerator
 
-# TODO: Update these with your site details
-SITE_URL = "https://example.com"
-SITE_TITLE = "Jane Doe's Blog"
-SITE_SUBTITLE = "Thoughts on data science, open-source software, and teaching."
-AUTHOR = {"name": "Jane Doe", "email": "jane.doe@example.com"}
-LANGUAGE = "en"
+ROOT = Path(__file__).parent
+
+
+def resolve_site_url() -> str:
+    """Resolve the public site URL from env or the optional CNAME file."""
+    site_url = os.environ.get("SITE_URL", "").strip()
+    if site_url:
+        return site_url.rstrip("/")
+
+    cname_path = ROOT / "CNAME"
+    if cname_path.exists():
+        cname = cname_path.read_text(encoding="utf-8").strip()
+        if cname:
+            return f"https://{cname}".rstrip("/")
+
+    return "https://example.com"
+
+
+SITE_URL = resolve_site_url()
+SITE_TITLE = "李广的站点"
+SITE_SUBTITLE = "以个人简历与项目展示为主的 MyST 站点。"
+AUTHOR = {"name": "李广", "email": "841143092@qq.com"}
+LANGUAGE = "zh"
 
 FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n(.*)$", re.DOTALL)
 SUMMARY_CHARS = 500
@@ -43,16 +61,7 @@ def summarize(body: str) -> str:
 
 
 def parse_post(path: Path) -> dict | None:
-    """Parse a blog post's frontmatter and body.
-
-    Args:
-        path: Path to a Markdown file.
-
-    Returns:
-        Dict with ``title``, ``date``, ``slug``, ``description``, ``tags``,
-        and ``content`` keys, or ``None`` if the file has no frontmatter or
-        no ``date`` field.
-    """
+    """Parse a blog post's frontmatter and body."""
     text = path.read_text(encoding="utf-8")
     match = FRONTMATTER_RE.match(text)
     if not match:
@@ -79,14 +88,7 @@ def parse_post(path: Path) -> dict | None:
 
 
 def build_feed(posts: list[dict]) -> FeedGenerator:
-    """Build a FeedGenerator populated with the given posts.
-
-    Args:
-        posts: List of post dicts from :func:`parse_post`, sorted newest first.
-
-    Returns:
-        A configured ``FeedGenerator`` instance.
-    """
+    """Build a FeedGenerator populated with the given posts."""
     fg = FeedGenerator()
     fg.id(SITE_URL)
     fg.title(SITE_TITLE)
@@ -113,7 +115,7 @@ def build_feed(posts: list[dict]) -> FeedGenerator:
 
 def main() -> None:
     """Generate ``rss.xml`` and ``atom.xml`` from the ``blog/`` directory."""
-    root = Path(__file__).parent
+    root = ROOT
     blog_dir = root / "blog"
     posts = [p for p in (parse_post(f) for f in blog_dir.glob("*.md")) if p]
     posts.sort(key=lambda p: p["date"], reverse=True)

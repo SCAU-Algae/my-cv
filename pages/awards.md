@@ -1,22 +1,34 @@
 ---
-title: Awards
-description: Awards and honors recognizing contributions to open-source software, research, and education.
+title: 荣誉与证书
+description: 李广的奖学金、项目荣誉、资格证书与校园经历。
 keywords:
-  - Awards
-  - Honors
-  - Recognition
+  - 荣誉
+  - 证书
+  - 奖学金
 ---
 
-# Awards & Honors
+# 荣誉与证书
 
-A selection of awards and honors recognizing contributions to open-source software, research, and education.
+## 奖学金与荣誉
 
-| Year | Award |
+| 时间 | 荣誉 |
 |------|-------|
-| 2026 | Outstanding Research Award, Example University |
-| 2025 | Best Paper Award, International Data Science Conference |
-| 2024 | Open Source Contributor Award, Open Source Foundation |
-| 2023 | Early Career Research Award, College of Sciences, Example University |
-| 2022 | Graduate Teaching Award, Department of Computer Science, Example University |
-| 2021 | NSF CAREER Award |
-| 2020 | Best Dissertation Award, Example University |
+| 2025--2026 | 华南农业大学公共管理学院研究生学业奖学金一等奖 |
+| 2024--2025 | 华南农业大学公共管理学院研究生学业奖学金一等奖 |
+| 2024 | 项目成果获地理信息工程奖金奖 |
+| 2020--2021 | 华南农业大学资源环境学院综合测评三等奖学金 |
+
+---
+
+## 资格证书
+
+- 大学英语四级
+- 驾驶证 C1
+
+---
+
+## 校园经历
+
+- 华南农业大学融媒体工作室微博部成员
+- 华南农业大学资源环境学院青年志愿者服务队干事
+- 班级生活委员

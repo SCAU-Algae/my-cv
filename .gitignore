@@ -131,3 +131,6 @@ book-*/images/
 
 # Private / local files
 private/
+
+# Local template dependencies
+.local_templates/**/node_modules/

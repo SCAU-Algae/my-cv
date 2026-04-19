@@ -102,6 +102,29 @@ myst build --html
 
 The built site will be in `_build/html/`.
 
+### Build Local HTML + PDF
+
+For this customized resume site, the simplest local build command is:
+
+```bash
+python build_local.py
+```
+
+Or on Windows PowerShell:
+
+```powershell
+.\build_local.ps1
+```
+
+This script will:
+
+1. Generate `cv.typ`
+2. Compile `cv.pdf` when `typst` and `fonts/` are available
+3. Build the HTML site into `_build/html/`
+4. Copy `cv.pdf` into `_build/html/cv.pdf` when PDF generation succeeds
+
+If `typst` or `fonts/` are missing, the script will still build the HTML site and clearly tell you why the PDF was skipped.
+
 ### Build CV PDF
 
 Prerequisites: Python 3.10+, [Typst](https://typst.app/) CLI, Font Awesome 6 desktop fonts (OTF) in a `fonts/` directory.
@@ -170,6 +193,23 @@ Pushes to `main` trigger the `deploy.yml` workflow, which:
 6. Deploys everything to GitHub Pages
 
 The CV PDF will be available at `https://your-site.com/cv.pdf`.
+
+### Recommended workflow for this resume site
+
+If you are using this repository as your personal CV website, the simplest workflow is:
+
+1. Edit the Markdown files locally, such as `index.md` and files in `pages/`
+2. Commit and push your changes to the `main` branch on GitHub
+3. Let GitHub Actions automatically build and deploy the website
+4. Share the GitHub Pages URL instead of the repository URL
+
+If you do not configure a custom domain, the public site URL will normally be:
+
+```text
+https://<your-github-username>.github.io/<your-repository-name>/
+```
+
+After each push to `main`, the deployed site will also regenerate and publish `cv.pdf`, so the web resume and PDF resume stay in sync.
 
 ### Netlify (PR previews)
 

@@ -29,6 +29,17 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v6
 
+      - name: Resolve public site URL
+        env:
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          if [ -f CNAME ] && [ -s CNAME ]; then
+            echo "SITE_URL=https://$(tr -d '\n\r' < CNAME)" >> "$GITHUB_ENV"
+          else
+            echo "SITE_URL=https://${REPO_OWNER}.github.io/${REPO_NAME}" >> "$GITHUB_ENV"
+          fi
+
       - uses: actions/setup-node@v6
         with:
           node-version: 18.x
@@ -71,13 +82,16 @@ jobs:
         run: myst build --html
 
       - name: Generate RSS and Atom feeds
+        env:
+          SITE_URL: ${{ env.SITE_URL }}
         run: python generate_rss.py
 
-      # TODO: Update the URL below with your custom domain
       - name: Rewrite localhost URLs in sitemap
+        env:
+          SITE_URL: ${{ env.SITE_URL }}
         run: |
           if [ -f ./_build/html/sitemap.xml ]; then
-            sed -i 's|http://localhost:[0-9]*|https://example.com|g' ./_build/html/sitemap.xml
+            sed -i "s|http://localhost:[0-9]*|${SITE_URL}|g" ./_build/html/sitemap.xml
           fi
 
       - name: Inject Giscus comments into blog posts
@@ -85,7 +99,9 @@ jobs:
 
       - name: Copy static files and rewrite CV URL to stable path
         run: |
-          cp CNAME ./_build/html/ 2>/dev/null || true
+          if [ -f CNAME ] && [ -s CNAME ]; then
+            cp CNAME ./_build/html/CNAME
+          fi
           cp cv.pdf ./_build/html/cv.pdf
           # Rewrite hashed CV URL to stable /cv.pdf path
           find ./_build/html -name "*.html" -exec sed -i 's|/build/cv-[a-f0-9]\{20,\}\.pdf|/cv.pdf|g' {} \;

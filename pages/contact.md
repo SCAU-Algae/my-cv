@@ -1,22 +1,20 @@
 ---
-title: Contact
-description: Contact information for collaboration, speaking invitations, or questions.
+title: 联系方式
+description: 李广的邮箱、电话与求职沟通信息。
 ---
 
-# Contact
+# 联系方式
 
-Feel free to reach out for collaboration, speaking invitations, or questions about open-source software.
+如需进一步了解项目细节、研究方向或驻场项目经验，欢迎联系。
 
-**Email:** [jane.doe@example.com](mailto:jane.doe@example.com)
+**邮箱：** [841143092@qq.com](mailto:841143092@qq.com)
 
-**Phone:** +1-234-567-8901
+**电话：** [18617027258](tel:18617027258)
 
-**Office:** [123 Science Building](https://maps.google.com), Example University, Anytown, ST 12345
+**所在地：** 深圳
 
-## Connect
+**教育背景：** 华南农业大学土地资源管理硕士在读
 
-[LinkedIn](https://www.linkedin.com/in/username) |
-[Twitter](https://twitter.com/username) |
-[GitHub](https://github.com/username) |
-[Google Scholar](https://scholar.google.com) |
-[ORCID](https://orcid.org/0000-0000-0000-0000)
+## 备注
+
+目前重点关注深圳方向的技术项目管理、深度学习工程师与空间数据分析岗位，也欢迎就住宅用地价格评估、土地利用识别和 WebGIS 原型开发相关内容交流。

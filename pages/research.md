@@ -1,80 +1,34 @@
 ---
-title: Research
-description: Research areas, publications, grants, and patents.
+title: 研究与论文
+description: 李广的研究方向、方法栈与代表性论文成果。
 keywords:
-  - Research
-  - Publications
-  - Grants
-  - Patents
+  - 研究方向
+  - 论文成果
+  - 可解释机器学习
 ---
 
-# Research
+# 研究与论文
 
-Dr. Doe's research focuses on advancing open-source data science through machine learning and cloud computing.
+我的研究兴趣集中在城市空间数据、地价评估建模与可解释机器学习，强调从业务场景出发做数据建模、结果解释和应用展示。
 
-## Research Areas
+## 研究方向
 
-- Data Science
-- Machine Learning
-- Open-Source Software Development
-- Cloud Computing
-
----
-
-## Patents
-
-- J. Doe, J. Smith. "Method and system for automated data processing." U.S. Patent Application No. 12/345,678, filed January 2025.
+- AI+智能城市空间大数据感知
+- 城市人类活动空间解析与人地交互关系量化
+- 住宅用地价格智能评估
+- 城市用地功能（LUC）识别与地理空间建模
 
 ---
 
-## Books
+## 方法与工具
 
-- **J. Doe** (2026). *Data Science with Python*. Publisher Name. [https://example.com/book](https://example.com/book)
-
----
-
-## Refereed Publications
-
-**Published**: 10 papers | **Citations**: 500+ | *h*-index: 8
-
-:::{dropdown} 2026
-:open:
-
-**J. Doe**, J. Smith, A. Johnson (2026). "Deep learning for geospatial analysis." *Journal of Data Science*, 15(3), 123--145. [https://doi.org/10.1234/example1](https://doi.org/10.1234/example1)
-
-A. Johnson, **J. Doe** (2026). "Scalable cloud computing for large datasets." *IEEE Transactions on Big Data*, 8(2), 456--470. [https://doi.org/10.1234/example2](https://doi.org/10.1234/example2)
-
-:::
-
-:::{dropdown} 2025
-
-**J. Doe**, B. Williams (2025). "Open-source tools for reproducible research." *Nature Methods*, 22(1), 78--92. [https://doi.org/10.1234/example3](https://doi.org/10.1234/example3)
-
-C. Brown, **J. Doe**, D. Lee (2025). "Machine learning in environmental science." *Environmental Modelling & Software*, 150, 105--120. [https://doi.org/10.1234/example4](https://doi.org/10.1234/example4)
-
-:::
+- 机器学习与深度学习：XGBoost、随机森林、FNN、CNN、Transformer、图神经网络
+- 可解释分析：SHAP、XAI
+- 空间数据工具：ArcGIS、ArcGIS Pro、空间数据库、WebGIS
+- 开发环境：Python、PyTorch、Anaconda、Vue
 
 ---
 
-## Grants
+## 论文发表
 
-### Funded
-
-:::{dropdown} As PI
-:open:
-
-**J. Doe** (PI). "Scalable Data Science Infrastructure." National Science Foundation (NSF). $500,000. 2024--2027.
-
-**J. Doe** (PI). "Open-Source Tools for Machine Learning." Department of Energy (DOE). $250,000. 2023--2025.
-
-:::
-
-:::{dropdown} As Co-PI
-
-J. Smith (PI), **J. Doe** (Co-PI). "Cloud Computing for Scientific Research." NSF. $750,000. 2024--2028.
-
-:::
-
-### Pending
-
-**J. Doe** (PI). "AI-Driven Data Analytics Platform." NSF. $600,000. 2026--2029. (Submitted March 2026)
+- Lin, Chuan.; **Li, Guang.**; Zhou, Zegen.; Li, Jis.; Wang, Hongmei.; Liu, Yilun. *Enhancing Urban Land Use Identification Using Urban Morphology*. *Land* 2024, 13, 761. 共同第一作者，SSCI，JCR Q2，中科院二区，IF 3.2。

@@ -1,57 +1,43 @@
 ---
-title: Services
-description: Professional and institutional service activities.
+title: 实习经历
+description: 李广在空间数据处理与深度学习评估方向的实习经历。
 keywords:
-  - Editorial Services
-  - Peer Review
-  - Committees
-  - Professional Service
+  - 实习经历
+  - 深度学习工程师
+  - 空间数据处理
 ---
 
-# Services
+# 实习经历
 
-Dr. Doe serves the academic community through editorial roles, proposal review, conference organization, and institutional leadership.
+### 深圳市自然资源和不动产评估发展研究中心
 
-## Professional Services
+**时间：** 2024.11--至今
 
-| Period | Role |
-|--------|------|
-| 2024--present | Associate Editor, *Journal of Data Science* |
-| 2023--present | Program Committee Member, International Conference on Machine Learning (ICML) |
-| 2022--present | Reviewer, *Nature Methods*, *IEEE TPAMI*, *JMLR* |
+**岗位：** 深度学习工程师
 
----
+- 整理历史地理数据，构建用于模型训练的数据库。
+- 基于 Transformer 模型开展深圳市住宅用地市场地价评估建模，并结合 SHAP 完成可解释分析。
+- 开发简易可视化 WebGIS 系统，配合甲方 WebGIS 项目组完成空间数据与功能集成。
+- 撰写研究报告、工作报告与汇报 PPT，定期进行阶段性汇报并答复业务问题。
 
-## Institutional Services
+**阶段成果：**
 
-### Department of Computer Science, Example University
+- 完成住宅用地市场地价评估流程的 AI 建模，提高评估效率。
+- 形成可视化人工智能地价评估原型软件。
+- 输出深圳市住宅用地市场地价时空变化研究报告。
 
-| Period | Role |
-|--------|------|
-| 2025--present | Graduate Admissions Committee Chair |
-| 2024--present | Curriculum Committee Member |
-| 2023--present | Seminar Series Organizer |
+### 广东国地规划科技股份有限公司
 
-### College of Sciences, Example University
+**时间：** 2023.04--2023.07
 
-| Period | Role |
-|--------|------|
-| 2024--present | Research Computing Advisory Board Member |
-| 2023--2024 | Faculty Search Committee Member |
+**岗位：** 空间数据处理工程师
 
----
+- 参与新型产业用地和土地储备相关项目，负责土地整治、土地储备、土地入市等政策资料的收集、整理与汇编。
+- 处理三调数据和政府提供的土地数据，完成基础分析和数据整理工作。
+- 协作制定田长制实施中的责任范围划界方案，并参与土地入市政策效能分析。
 
-## Disciplinary Services
+**阶段成果：**
 
-### Conference Organization
-
-| Year | Role |
-|------|------|
-| 2026 | Session Chair, International Data Science Conference |
-| 2025 | Workshop Organizer, PyCon |
-| 2024 | Program Committee, SciPy Conference |
-
-### Proposal Review
-
-- NSF Panel Reviewer (2024, 2025)
-- DOE Proposal Reviewer (2023)
+- 协作解决汕头澄海田长制实施中的责任范围重新划界问题。
+- 分析与评价中山市土地入市政策效能。
+- 分析与评价乳源市入市潜力地块效能。

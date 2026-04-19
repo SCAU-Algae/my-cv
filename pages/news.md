@@ -1,31 +1,14 @@
 ---
-title: News
-description: A running log of updates, releases, publications, and milestones, organized by year.
+title: 近期状态
+description: 李广当前学习、项目和成果的简要更新。
 keywords:
-  - News
-  - Updates
-  - Releases
-  - Milestones
+  - 近期状态
+  - 更新
+  - 项目进展
 ---
 
-# News
+# 近期状态
 
-A running log of updates, releases, publications, and milestones, organized by year. The current year is expanded by default; click any previous year to expand it.
-
-:::{dropdown} 2026
-:open:
-
-- **2026-04-01** - Launched personal website with MyST Markdown
-- **2026-03-15** - Published new paper on machine learning in *Journal of Data Science*
-- **2026-02-01** - Released version 2.0 of project-alpha
-- **2026-01-10** - Received Best Paper Award at Conference 2026
-
-:::
-
-:::{dropdown} 2025
-
-- **2025-11-15** - Presented at International Data Science Conference
-- **2025-09-01** - Received NSF grant for data science infrastructure
-- **2025-06-20** - Workshop at PyCon 2025
-
-:::
+- **2024.11--至今**：在深圳市自然资源和不动产评估发展研究中心参与住宅用地价格评估相关项目，负责建模、解释分析与成果展示。
+- **2024--2025 / 2025--2026 学年**：连续获得华南农业大学公共管理学院研究生学业奖学金一等奖。
+- **2024**：参与论文 *Enhancing Urban Land Use Identification Using Urban Morphology* 发表。

@@ -1,66 +1,25 @@
 ---
-title: Talks
-description: Workshops, keynotes, and invited talks on data science and open-source software.
+title: 汇报与写作
+description: 李广在研究报告、工作报告和阶段汇报方面的实践。
 keywords:
-  - Workshops
-  - Keynotes
-  - Invited Talks
-  - Conferences
-  - Presentations
+  - 汇报
+  - 写作
+  - 项目沟通
 ---
 
-# Presentations
+# 汇报与写作
 
-Dr. Doe regularly gives talks, workshops, and keynote presentations at conferences and universities on topics including open-source software, data science, and machine learning.
+在项目推进过程中，我持续承担研究报告、工作报告和汇报 PPT 的整理与撰写工作，也负责面向业务方进行阶段性成果说明。
 
-## Workshop Host
+## 主要输出
 
-:::{dropdown} 2026
-:open:
-- Introduction to Machine Learning with Python. *Data Science Conference 2026*. San Francisco, CA. March 15, 2026 (3 hours)
-- Cloud Computing for Scientific Research. *Cloud Summit 2026*. Seattle, WA. February 10, 2026 (2 hours)
-:::
-
-:::{dropdown} 2025
-- Open-Source Tools for Data Analysis. *PyCon 2025*. Pittsburgh, PA. April 20, 2025 (4 hours)
-- Deep Learning Workshop. *NeurIPS 2025*. Vancouver, Canada. December 8, 2025 (3 hours)
-:::
+- 竞争性谈判文书与项目支撑材料
+- 研究报告、工作报告和阶段汇报 PPT
+- 面向甲方的需求确认、问题答复和进度沟通材料
 
 ---
 
-## Invited Talks
+## 相关经验
 
-(10+ invited talks at conferences and universities)
-
-:::{dropdown} 2026
-:open:
-- "Scalable Data Science with Open-Source Tools." Keynote at *International Data Science Conference*. New York, NY. April 5, 2026
-- "The Future of Open-Source Scientific Software." Invited talk at *Example University Colloquium*. Boston, MA. March 1, 2026
-:::
-
-:::{dropdown} 2025
-- "Machine Learning for Environmental Science." Invited talk at *Environmental Data Summit*. Denver, CO. October 15, 2025
-- "Building Open-Source Communities." Invited talk at *Open Source Summit*. Austin, TX. June 20, 2025
-:::
-
----
-
-## Conference Proceedings
-
-**J. Doe**, A. Smith. "Efficient distributed computing for large-scale data." *Proceedings of the International Conference on Data Engineering (ICDE)*. 2025.
-
-B. Johnson, **J. Doe**. "Neural network architectures for spatial data." *Proceedings of the AAAI Conference on Artificial Intelligence*. 2024.
-
----
-
-## Conference Presentations
-
-:::{dropdown} 2026
-:open:
-- **J. Doe**. "Advances in open-source data science tools." *AAAS Annual Meeting*. Phoenix, AZ. February 2026.
-:::
-
-:::{dropdown} 2025
-- **J. Doe**, A. Johnson. "Cloud-based machine learning pipelines." *AGU Fall Meeting*. New Orleans, LA. December 2025.
-- **J. Doe**. "Open-source tools for reproducible research." *SciPy Conference*. Austin, TX. July 2025.
-:::
+- 能够把模型逻辑、可解释分析结果和空间数据成果转化为业务方可理解的汇报内容。
+- 有驻场项目经验，熟悉在需求变动和多方协作环境下持续推进工作。

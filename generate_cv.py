@@ -1,25 +1,15 @@
 #!/usr/bin/env python3
-"""Generate cv.typ from the website's markdown files using the modern-cv Typst package.
+"""Generate cv.typ from the current Chinese resume pages."""
 
-Reads structured data from pages/about.md, pages/research.md, pages/software.md,
-pages/teaching.md, pages/talks.md, pages/awards.md, and pages/services.md, then
-generates a complete Typst CV file using the modern-cv package for styling.
-
-Usage: python generate_cv.py
-Output: cv.typ (compile with: typst compile cv.typ cv.pdf --font-path ./fonts)
-"""
+from __future__ import annotations
 
 import re
 from pathlib import Path
 
-# ============================================================================
-# Utility functions
-# ============================================================================
 
-
-def read_file(base, filename):
-    """Read a markdown file, stripping YAML frontmatter."""
-    text = (base / filename).read_text(encoding="utf-8")
+def read_file(path: Path) -> str:
+    """Read a markdown file and strip YAML frontmatter."""
+    text = path.read_text(encoding="utf-8")
     if text.startswith("---"):
         end = text.find("---", 3)
         if end != -1:
@@ -27,78 +17,60 @@ def read_file(base, filename):
     return text.strip()
 
 
-def _convert_bold_italic(text):
-    """Convert markdown **bold** -> Typst *bold* and *italic* -> _italic_."""
-    bolds = []
-
-    def save_bold(m):
-        bolds.append(m.group(1))
-        return f"\x00B{len(bolds) - 1}\x00"
-
-    text = re.sub(r"\*\*(.+?)\*\*", save_bold, text)
-    text = re.sub(r"(?<!\*)\*([^*\n]+?)\*(?!\*)", r"_\1_", text)
-    for i, b in enumerate(bolds):
-        text = text.replace(f"\x00B{i}\x00", f"*{b}*")
-    return text
-
-
-def escape_typst(text):
-    """Convert markdown-formatted text to Typst content mode."""
+def escape_typst(text: str) -> str:
+    """Escape text for Typst content mode and convert simple markdown links."""
     if not text:
         return ""
 
-    links = []
+    links: list[str] = []
 
-    def save_bare_url(m):
-        url = m.group(1).replace('"', '\\"')
-        links.append(f'#link("{url}")')
+    def save_link(match: re.Match[str]) -> str:
+        label = match.group(1)
+        url = match.group(2).replace('"', '\\"')
+        label = label.replace("\\", "\\\\")
+        label = label.replace("#", "\\#")
+        label = label.replace("@", "\\@")
+        label = label.replace("$", "\\$")
+        label = re.sub(r"\*\*(.+?)\*\*", r"*\1*", label)
+        links.append(f'#link("{url}")[{label}]')
         return f"\x00L{len(links) - 1}\x00"
 
-    text = re.sub(r"<(https?://[^>]+)>", save_bare_url, text)
-
-    def save_md_link(m):
-        lt = m.group(1)
-        url = m.group(2).replace('"', '\\"')
-        lt = lt.replace("\\", "\\\\")
-        lt = lt.replace("#", "\\#")
-        lt = lt.replace("@", "\\@")
-        lt = lt.replace("$", "\\$")
-        lt = _convert_bold_italic(lt)
-        links.append(f'#link("{url}")[{lt}]')
-        return f"\x00L{len(links) - 1}\x00"
-
-    text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", save_md_link, text)
-
+    text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", save_link, text)
     text = text.replace("\\", "\\\\")
     text = text.replace("#", "\\#")
     text = text.replace("@", "\\@")
     text = text.replace("$", "\\$")
-
-    text = _convert_bold_italic(text)
+    text = re.sub(r"\*\*(.+?)\*\*", r"*\1*", text)
 
     for i, link in enumerate(links):
         text = text.replace(f"\x00L{i}\x00", link)
-
     return text
 
 
-def strip_markdown(text):
-    """Remove markdown formatting, returning plain text."""
-    text = re.sub(r"\*\*(.+?)\*\*", r"\1", text)
-    text = re.sub(r"\*(.+?)\*", r"\1", text)
-    text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
-    text = re.sub(r"<https?://[^>]+>", "", text)
-    return text.strip()
+def extract_section(text: str, heading: str) -> str:
+    """Extract content after a heading until the next heading or rule."""
+    escaped = re.escape(heading)
+    match = re.search(rf"^{escaped}\s*$", text, re.MULTILINE)
+    if not match:
+        return ""
+    start = match.end()
+    level = len(re.match(r"^#+", heading).group())  # type: ignore[arg-type]
+    end_match = re.search(
+        rf"^(?:#{{1,{level}}}\s|---\s*$)", text[start:], re.MULTILINE
+    )
+    if end_match:
+        return text[start : start + end_match.start()].strip()
+    return text[start:].strip()
 
 
-def parse_table(text):
-    """Parse a markdown table into a list of row dicts."""
-    lines = [l.strip() for l in text.strip().split("\n") if l.strip().startswith("|")]
+def parse_table(text: str) -> list[dict[str, str]]:
+    """Parse a markdown table into row dictionaries."""
+    lines = [line.strip() for line in text.splitlines() if line.strip().startswith("|")]
     if len(lines) < 3:
         return []
 
-    def split_row(line):
-        cells = [c.strip() for c in line.split("|")]
+    def split_row(line: str) -> list[str]:
+        cells = [cell.strip() for cell in line.split("|")]
         if cells and cells[0] == "":
             cells = cells[1:]
         if cells and cells[-1] == "":
@@ -106,58 +78,26 @@ def parse_table(text):
         return cells
 
     headers = split_row(lines[0])
-    rows = []
+    rows: list[dict[str, str]] = []
     for line in lines[2:]:
         cells = split_row(line)
         row = {}
-        for i, h in enumerate(headers):
-            row[h] = cells[i] if i < len(cells) else ""
+        for i, header in enumerate(headers):
+            row[header] = cells[i] if i < len(cells) else ""
         rows.append(row)
     return rows
 
 
-def extract_section(text, heading):
-    """Extract content between a heading and the next heading of same/higher level or ---."""
-    escaped = re.escape(heading)
-    m = re.search(rf"^{escaped}\s*$", text, re.MULTILINE)
-    if not m:
-        return ""
-    start = m.end()
-    level = len(re.match(r"^#+", heading).group())
-    end_pat = rf"^(?:#{{{1},{level}}}\s|---\s*$)"
-    end_m = re.search(end_pat, text[start:], re.MULTILINE)
-    if end_m:
-        return text[start : start + end_m.start()].strip()
-    return text[start:].strip()
-
-
-def parse_dropdowns(text):
-    """Parse :::{dropdown} blocks into list of (label, content) tuples."""
-    results = []
-    for m in re.finditer(
-        r":::\{dropdown\}\s*(.+?)\n(?::open:\n)?(.*?)\n\s*:::[ \t]*$",
-        text,
-        re.DOTALL | re.MULTILINE,
-    ):
-        results.append((m.group(1).strip(), m.group(2).strip()))
-    return results
-
-
-def split_entries(text):
-    """Split text into entries separated by blank lines."""
-    return [e.strip() for e in re.split(r"\n\s*\n", text.strip()) if e.strip()]
-
-
-def parse_bullets(text):
-    """Parse bullet list items, joining continuation lines."""
-    items = []
-    current = None
-    for line in text.split("\n"):
-        m = re.match(r"^[\-\*]\s+(.+)", line)
-        if m:
+def parse_bullets(text: str) -> list[str]:
+    """Parse unordered or ordered markdown list items."""
+    items: list[str] = []
+    current: str | None = None
+    for line in text.splitlines():
+        match = re.match(r"^(?:[-*]|\d+\.)\s+(.+)", line.strip())
+        if match:
             if current is not None:
                 items.append(current)
-            current = m.group(1)
+            current = match.group(1).strip()
         elif current is not None and line.strip():
             current += " " + line.strip()
     if current is not None:
@@ -165,10 +105,10 @@ def parse_bullets(text):
     return items
 
 
-def find_subsections(text):
-    """Split text at ### headings, returning list of (title, content)."""
+def find_level3_sections(text: str) -> list[tuple[str, str]]:
+    """Split text at level-3 headings."""
     parts = re.split(r"^###\s+", text, flags=re.MULTILINE)
-    results = []
+    results: list[tuple[str, str]] = []
     for part in parts[1:]:
         lines = part.split("\n", 1)
         title = lines[0].strip()
@@ -177,92 +117,37 @@ def find_subsections(text):
     return results
 
 
-def parse_cards(text):
-    """Parse :::{card} blocks into list of (name, link, description)."""
-    results = []
-    for m in re.finditer(
-        r":::\{card\}[ \t]+([^\n]+?)\n:link:\s*(.+?)\n(.*?)\n:::(?![:\{])",
-        text,
-        re.DOTALL,
-    ):
-        name = m.group(1).strip()
-        link = m.group(2).strip()
-        desc = m.group(3).strip()
-        desc = re.sub(r"```\{image\}.*?```", "", desc, flags=re.DOTALL)
-        desc = re.sub(r"\n+", " ", desc).strip()
-        if name:
-            results.append((name, link, desc))
-    return results
-
-
-def table_to_items(text):
-    """Convert markdown table rows to Typst resume-item bullet list."""
-    rows = parse_table(text)
-    if not rows:
+def resume_items(items: list[str]) -> str:
+    """Render bullet items with modern-cv's resume-item component."""
+    if not items:
         return ""
-    items = []
-    for row in rows:
-        vals = [escape_typst(v) for v in row.values() if v.strip()]
-        if len(vals) >= 2:
-            items.append(f"  - {vals[0]}: {', '.join(vals[1:])}")
-        elif vals:
-            items.append(f"  - {vals[0]}")
-    return "#resume-item[\n" + "\n".join(items) + "\n]" if items else ""
+    lines = [f"  - {escape_typst(item)}" for item in items]
+    return "#resume-item[\n" + "\n".join(lines) + "\n]"
 
 
-def content_with_table(text):
-    """Convert text with optional intro paragraph and table to Typst."""
-    table_match = re.search(r"^\|", text, re.MULTILINE)
-    parts = []
-    if table_match:
-        before = text[: table_match.start()].strip()
-        if before:
-            parts.append(escape_typst(before))
-        result = table_to_items(text[table_match.start() :])
-        if result:
-            parts.append(result)
-    elif text.strip():
-        parts.append(escape_typst(text.strip()))
-    return "\n\n".join(parts)
-
-
-# ============================================================================
-# Section generators
-# ============================================================================
-
-
-def gen_preamble():
-    """Generate Typst preamble with modern-cv import and author config.
-
-    TODO: Update author information below with your own details.
-    """
+def gen_preamble() -> str:
+    """Generate Typst preamble."""
     return """#import "@preview/modern-cv:0.9.0": *
 
-// Use Font Awesome 6 icons and replace "Résumé" with "CV" in footer
 #fa-version("6")
-#show "Résumé": "CV"
+#show "R茅sum茅": "CV"
 
 #show: resume.with(
   author: (
-    firstname: "Jane",
-    lastname: "Doe",
-    email: "jane.doe@example.com",
-    phone: "(+1) 234-567-8901",
-    homepage: "https://example.com",
-    github: "username",
-    address: "123 Science Building, Example University, Anytown, ST 12345",
+    firstname: "Li",
+    lastname: "Guang",
+    email: "841143092@qq.com",
+    phone: "(+86) 186-1702-7258",
+    homepage: "",
+    github: "",
+    address: "Shenzhen, China",
     positions: (
-      "Assistant Professor",
-      "Data Scientist",
+      "Technical Project Management",
+      "Spatial Data & AI",
     ),
-    custom: (
-      (text: "username", icon: "twitter", link: "https://twitter.com/username"),
-      (text: "Jane Doe", icon: "linkedin", link: "https://www.linkedin.com/in/username"),
-      (text: "Jane Doe", icon: "google-scholar", link: "https://scholar.google.com"),
-      (text: "0000-0000-0000-0000", icon: "orcid", link: "https://orcid.org/0000-0000-0000-0000"),
-    ),
+    custom: (),
   ),
-  profile-picture: none,
+  profile-picture: "pages/images/profile-avatar.png",
   date: datetime.today().display(),
   language: "en",
   paper-size: "us-letter",
@@ -271,391 +156,227 @@ def gen_preamble():
   show-footer: true,
 )
 
-// Enable PDF bookmarks for section navigation
 #set heading(bookmarked: true)
-
-// Set PDF document title
-#set document(title: "Jane Doe - CV")"""
+#set document(title: "Li Guang - CV")"""
 
 
-def gen_education(about):
-    """Generate Education section from about.md."""
-    section = extract_section(about, "## Education")
-    rows = parse_table(section)
+def gen_profile(about: str) -> str:
+    """Generate summary section."""
+    content = extract_section(about, "# 个人简介")
+    if not content:
+        return ""
+    return "= 个人简介\n\n" + escape_typst(content)
+
+
+def gen_targets(about: str) -> str:
+    """Generate job target section."""
+    rows = parse_table(extract_section(about, "## 求职方向"))
     if not rows:
         return ""
-    lines = ["= Education\n"]
+    items = []
     for row in rows:
-        year = strip_markdown(row.get("Year", ""))
-        degree = escape_typst(row.get("Degree", ""))
-        institution = escape_typst(row.get("Institution", ""))
-        dissertation = escape_typst(row.get("Dissertation/Thesis", ""))
+        items.append(
+            " / ".join(
+                [
+                    row.get("方向", ""),
+                    row.get("城市", ""),
+                    row.get("薪资预期", ""),
+                    row.get("当前定位", ""),
+                ]
+            )
+        )
+    return "= 求职方向\n\n" + resume_items(items)
+
+
+def gen_education(about: str) -> str:
+    """Generate education section."""
+    rows = parse_table(extract_section(about, "## 教育经历"))
+    if not rows:
+        return ""
+    lines = ["= 教育经历\n"]
+    for row in rows:
         lines.append(
-            f"#resume-entry(\n"
-            f"  title: [{degree}],\n"
-            f"  location: [{institution}],\n"
-            f"  date: [{year}],\n"
-            f"  description: [{dissertation}],\n"
-            f")"
+            "#resume-entry(\n"
+            f'  title: [{escape_typst(row.get("学位 / 专业", ""))}],\n'
+            f'  location: [{escape_typst(row.get("学校", ""))}],\n'
+            f'  date: [{escape_typst(row.get("时间", ""))}],\n'
+            f'  description: [{escape_typst(row.get("说明", ""))}],\n'
+            ")"
         )
     return "\n\n".join(lines)
 
 
-def gen_appointments(about):
-    """Generate Academic Appointments section from about.md."""
-    section = extract_section(about, "## Appointments")
-    rows = parse_table(section)
-    if not rows:
-        return ""
-    lines = ["= Academic Appointments\n"]
-    items = []
-    for row in rows:
-        period = escape_typst(row.get("Period", ""))
-        position = escape_typst(row.get("Position", ""))
-        items.append(f"  - {period}: {position}")
-    lines.append("#resume-item[\n" + "\n".join(items) + "\n]")
-    return "\n\n".join(lines)
-
-
-def gen_research_areas(research):
-    """Generate Research Areas section from research.md."""
-    section = extract_section(research, "## Research Areas")
-    if not section:
-        return ""
-    bullets = parse_bullets(section)
-    if not bullets:
-        return ""
-    items = tuple(f'"{b}"' for b in bullets)
-    return (
-        "= Research Areas\n\n"
-        "#resume-skill-item(\n"
-        '  "Research Focus",\n'
-        f"  ({', '.join(items)}),\n"
-        ")"
-    )
-
-
-def gen_patents(research):
-    """Generate Patents section from research.md."""
-    section = extract_section(research, "## Patents")
-    if not section:
-        return ""
-    bullets = parse_bullets(section)
-    if not bullets:
-        bullets = split_entries(section)
-    items = [f"  - {escape_typst(b)}" for b in bullets if b]
+def gen_strengths(about: str) -> str:
+    """Generate strengths section."""
+    items = parse_bullets(extract_section(about, "## 个人优势"))
     if not items:
         return ""
-    return "= Patents\n\n#resume-item[\n" + "\n".join(items) + "\n]"
+    return "= 个人优势\n\n" + resume_items(items)
 
 
-def gen_awards(awards_text):
-    """Generate Awards & Honors section from awards.md."""
-    rows = parse_table(awards_text)
-    if not rows:
+def gen_research(research: str) -> str:
+    """Generate research directions section."""
+    items = parse_bullets(extract_section(research, "## 研究方向"))
+    if not items:
         return ""
-    lines = ["= Awards & Honors\n"]
-    items = []
-    for row in rows:
-        year = strip_markdown(row.get("Year", ""))
-        award = escape_typst(row.get("Award", ""))
-        items.append(f"  - {year}: {award}")
-    lines.append("#resume-item[\n" + "\n".join(items) + "\n]")
-    return "\n\n".join(lines)
+    return "= 研究方向\n\n" + resume_items(items)
 
 
-def gen_books(research):
-    """Generate Books section from research.md."""
-    section = extract_section(research, "## Books")
-    if not section:
+def gen_methods(research: str) -> str:
+    """Generate methods and tools section."""
+    items = parse_bullets(extract_section(research, "## 方法与工具"))
+    if not items:
         return ""
-    bullets = parse_bullets(section)
-    if not bullets:
+    return "= 方法与工具\n\n" + resume_items(items)
+
+
+def gen_publications(research: str) -> str:
+    """Generate publication section."""
+    items = parse_bullets(extract_section(research, "## 论文发表"))
+    if not items:
         return ""
-    items = [f"  - {escape_typst(b)}" for b in bullets]
-    return "= Books\n\n#resume-item[\n" + "\n\n".join(items) + "\n]"
+    return "= 论文发表\n\n" + resume_items(items)
 
 
-def gen_publications(research):
-    """Generate Refereed Publications section from research.md."""
-    section = extract_section(research, "## Refereed Publications")
-    if not section:
+def gen_projects(software: str) -> str:
+    """Generate project section."""
+    content = extract_section(software, "## 重点项目")
+    sections = find_level3_sections(content)
+    if not sections:
         return ""
-
-    summary = ""
-    m = re.search(r"\*\*Published\*\*.*$", section, re.MULTILINE)
-    if m:
-        summary = escape_typst(m.group())
-
-    dropdowns = parse_dropdowns(section)
-    lines = [f"= Refereed Publications\n\n{summary}"]
-
-    for label, content in dropdowns:
-        entries = split_entries(content)
-        items = [f"  - {escape_typst(e)}" for e in entries if e]
-        if items:
-            lines.append(f"\n== {label}\n")
-            lines.append("#resume-item[\n" + "\n\n".join(items) + "\n]")
-
-    return "\n".join(lines)
-
-
-def gen_grants(research):
-    """Generate Grants section from research.md."""
-    grants = extract_section(research, "## Grants")
-    if not grants:
-        return ""
-
-    lines = ["= Grants"]
-
-    # Funded grants (in dropdown blocks)
-    funded = extract_section(grants, "### Funded")
-    if funded:
-        lines.append("\n== Funded")
-        for label, content in parse_dropdowns(funded):
-            entries = split_entries(content)
-            items = [f"  - {escape_typst(e)}" for e in entries if e]
-            if items:
-                lines.append(f"\n=== {label}\n")
-                lines.append("#resume-item[\n" + "\n\n".join(items) + "\n]")
-
-    # Pending grants (plain text entries)
-    pending = extract_section(grants, "### Pending")
-    if pending:
-        lines.append("\n== Pending")
-        entries = split_entries(pending)
-        items = [f"  - {escape_typst(e)}" for e in entries if e]
-        if items:
-            lines.append("\n#resume-item[\n" + "\n\n".join(items) + "\n]")
-
-    return "\n".join(lines)
-
-
-def gen_software(software):
-    """Generate Open-Source Software section from software.md."""
-    cards = parse_cards(software)
-    if not cards:
-        return ""
-    lines = ["= Open-Source Software", ""]
-    items = []
-    for name, link, desc in cards:
-        escaped_name = escape_typst(name)
-        gh_path = link.replace("https://github.com/", "")
-        gh_inline = f'#box(baseline: 1pt, fa-icon("github", fill: color-darknight)) #link("{link}")[{gh_path}]'
-        if desc:
-            items.append(f"  - *{escaped_name}*: {escape_typst(desc)} ({gh_inline})")
-        else:
-            items.append(f"  - *{escaped_name}* ({gh_inline})")
-    lines.append("#resume-item[\n" + "\n".join(items) + "\n]")
-    return "\n".join(lines)
-
-
-def gen_teaching(teaching):
-    """Generate Teaching section from teaching.md."""
-    lines = ["= Teaching"]
-
-    # Self-Paced Online Courses subsection
-    online = extract_section(teaching, "## Self-Paced Online Courses")
-    if online:
-        rows = parse_table(online)
-        if rows:
-            lines.append("\n== Self-Paced Online Courses\n")
-            items = []
-            for row in rows:
-                course = escape_typst(row.get("Course", ""))
-                title = escape_typst(row.get("Title", ""))
-                website = escape_typst(row.get("Website", ""))
-                parts = [f"{course}: {title}"]
-                if website:
-                    parts.append(website)
-                items.append(f"  - {', '.join(parts)}")
-            lines.append("#resume-item[\n" + "\n".join(items) + "\n]")
-
-    # Look for course sections with "Courses at" pattern
-    for m in re.finditer(r"^## (Courses at .+)$", teaching, re.MULTILINE):
-        heading = m.group(0)
-        label = m.group(1)
-        section = extract_section(teaching, heading)
-        if not section:
-            continue
-        rows = parse_table(section)
-        if not rows:
-            continue
-        lines.append(f"\n== {label}\n")
-        items = []
-        for row in rows:
-            course = escape_typst(row.get("Course", ""))
-            title = escape_typst(row.get("Title", ""))
-            semesters = escape_typst(row.get("Semesters", ""))
-            items.append(f"  - {course}: {title} ({semesters})")
-        lines.append("#resume-item[\n" + "\n".join(items) + "\n]")
-
-    return "\n".join(lines)
-
-
-def gen_mentoring(teaching):
-    """Generate Mentoring section from teaching.md."""
-    mentoring = extract_section(teaching, "## Mentoring")
-    if not mentoring:
-        return ""
-
-    lines = ["= Mentoring"]
-
-    subsections = find_subsections(mentoring)
-    for title, content in subsections:
-        if "Past" in title:
-            lines.append(f"\n== {escape_typst(title)}\n")
-            dropdowns = parse_dropdowns(content)
-            for dd_label, dd_content in dropdowns:
-                lines.append(f"\n=== {escape_typst(dd_label)}\n")
-                rows = parse_table(dd_content)
-                if rows:
-                    items = []
-                    for row in rows:
-                        vals = [escape_typst(v) for v in row.values() if v.strip()]
-                        items.append(f"  - {': '.join(vals)}")
-                    lines.append("#resume-item[\n" + "\n".join(items) + "\n]")
-        else:
-            lines.append(f"\n== {escape_typst(title)}\n")
-            rows = parse_table(content)
-            if rows:
-                items = []
-                for row in rows:
-                    vals = [escape_typst(v) for v in row.values() if v.strip()]
-                    items.append(f"  - {': '.join(vals)}")
-                lines.append("#resume-item[\n" + "\n".join(items) + "\n]")
-
-    return "\n".join(lines)
-
-
-def _gen_talks_section(talks, heading, cv_title, include_summary=False):
-    """Generate a talks section (workshops, invited talks, or presentations)."""
-    section = extract_section(talks, heading)
-    if not section:
-        return ""
-
-    lines = [f"= {cv_title}"]
-
-    if include_summary:
-        m = re.search(r"^\(.+\)$", section, re.MULTILINE)
-        if m:
-            lines.append(f"\n{escape_typst(m.group())}")
-
-    dropdowns = parse_dropdowns(section)
-    for label, content in dropdowns:
-        bullets = parse_bullets(content)
+    parts = ["= 项目经历\n"]
+    for title, body in sections:
+        time = (re.search(r"\*\*时间：\*\*\s*(.+)", body) or [None, ""])[1]
+        role = (re.search(r"\*\*角色：\*\*\s*(.+)", body) or [None, ""])[1]
+        bullets = parse_bullets(body)
+        parts.append(f"== {escape_typst(title)}\n")
+        meta = []
+        if time:
+            meta.append(f"时间：{time}")
+        if role:
+            meta.append(f"角色：{role}")
+        if meta:
+            parts.append(escape_typst(" | ".join(meta)) + "\n")
         if bullets:
-            items = [f"  - {escape_typst(b)}" for b in bullets]
-            lines.append(f"\n== {label}\n")
-            lines.append("#resume-item[\n" + "\n".join(items) + "\n]")
-
-    return "\n".join(lines)
+            parts.append(resume_items(bullets))
+    return "\n".join(parts).strip()
 
 
-def gen_workshops(talks):
-    """Generate Workshops section from talks.md."""
-    return _gen_talks_section(talks, "## Workshop Host", "Workshops")
-
-
-def gen_invited_talks(talks):
-    """Generate Invited Talks section from talks.md."""
-    return _gen_talks_section(
-        talks, "## Invited Talks", "Invited Talks", include_summary=True
-    )
-
-
-def gen_conf_proceedings(talks):
-    """Generate Conference Proceedings section from talks.md."""
-    section = extract_section(talks, "## Conference Proceedings")
-    if not section:
+def gen_internships(services: str) -> str:
+    """Generate internship section."""
+    sections = find_level3_sections(services)
+    if not sections:
         return ""
-    entries = split_entries(section)
-    items = [f"  - {escape_typst(e)}" for e in entries if e]
-    if not items:
-        return ""
-    return "= Conference Proceedings\n\n#resume-item[\n" + "\n".join(items) + "\n]"
+    parts = ["= 实习经历\n"]
+    for title, body in sections:
+        time = (re.search(r"\*\*时间：\*\*\s*(.+)", body) or [None, ""])[1]
+        role = (re.search(r"\*\*岗位：\*\*\s*(.+)", body) or [None, ""])[1]
+        stage_items: list[str] = []
+        main_items: list[str] = []
+        in_stage = False
+        for line in body.splitlines():
+            if line.strip().startswith("**阶段成果"):
+                in_stage = True
+                continue
+            if in_stage:
+                stage_items.extend(parse_bullets(line))
+            else:
+                main_items.extend(parse_bullets(line))
+
+        parts.append(f"== {escape_typst(title)}\n")
+        meta = []
+        if time:
+            meta.append(f"时间：{time}")
+        if role:
+            meta.append(f"岗位：{role}")
+        if meta:
+            parts.append(escape_typst(" | ".join(meta)) + "\n")
+        if main_items:
+            parts.append(resume_items(main_items))
+        if stage_items:
+            parts.append("=== 阶段成果\n")
+            parts.append(resume_items(stage_items))
+    return "\n".join(parts).strip()
 
 
-def gen_conf_presentations(talks):
-    """Generate Conference Presentations section from talks.md."""
-    return _gen_talks_section(
-        talks, "## Conference Presentations", "Conference Presentations"
-    )
+def gen_skills(skills_text: str) -> str:
+    """Generate skills section."""
+    parts = ["= 专业技能\n"]
+    for heading in ["## GIS 与空间数据", "## AI 建模", "## 开发与协作"]:
+        title = heading.replace("## ", "")
+        items = parse_bullets(extract_section(skills_text, heading))
+        if items:
+            parts.append(f"== {escape_typst(title)}\n")
+            parts.append(resume_items(items))
+    return "\n".join(parts).strip()
 
 
-def gen_services(services):
-    """Generate all service sections from services.md."""
+def gen_awards(awards: str) -> str:
+    """Generate awards, certificates, and campus work section."""
     parts = []
+    rows = parse_table(extract_section(awards, "## 奖学金与荣誉"))
+    if rows:
+        items = [f'{row.get("时间", "")}: {row.get("荣誉", "")}' for row in rows]
+        parts.append("= 荣誉与证书\n")
+        parts.append("== 奖学金与荣誉\n")
+        parts.append(resume_items(items))
 
-    # Professional Services
-    prof = extract_section(services, "## Professional Services")
-    if prof:
-        parts.append("= Professional Services\n")
-        result = table_to_items(prof)
-        if result:
-            parts.append(result)
+    certs = parse_bullets(extract_section(awards, "## 资格证书"))
+    if certs:
+        parts.append("== 资格证书\n")
+        parts.append(resume_items(certs))
 
-    # Institutional Services
-    inst = extract_section(services, "## Institutional Services")
-    if inst:
-        parts.append("= Institutional Services\n")
-        for title, content in find_subsections(inst):
+    campus = parse_bullets(extract_section(awards, "## 校园经历"))
+    if campus:
+        parts.append("== 校园经历\n")
+        parts.append(resume_items(campus))
+
+    return "\n".join(parts).strip()
+
+
+def gen_reports(talks: str) -> str:
+    """Generate communication and writing section."""
+    parts = ["= 汇报与写作\n"]
+    for heading in ["## 主要输出", "## 相关经验"]:
+        title = heading.replace("## ", "")
+        items = parse_bullets(extract_section(talks, heading))
+        if items:
             parts.append(f"== {escape_typst(title)}\n")
-            result = table_to_items(content)
-            if result:
-                parts.append(result)
-
-    # Disciplinary Services
-    disc = extract_section(services, "## Disciplinary Services")
-    if disc:
-        parts.append("= Disciplinary Services\n")
-        for title, content in find_subsections(disc):
-            parts.append(f"== {escape_typst(title)}\n")
-            parts.append(content_with_table(content))
-
-    return "\n\n".join(p for p in parts if p)
+            parts.append(resume_items(items))
+    return "\n".join(parts).strip()
 
 
-# ============================================================================
-# Main
-# ============================================================================
+def main() -> None:
+    """Read page content and generate cv.typ."""
+    root = Path(__file__).parent
+    pages = root / "pages"
 
-
-def main():
-    """Read website markdown files and generate cv.typ."""
-    base = Path(__file__).parent
-    pages = base / "pages"
-
-    about = read_file(pages, "about.md")
-    research = read_file(pages, "research.md")
-    software = read_file(pages, "software.md")
-    teaching = read_file(pages, "teaching.md")
-    talks = read_file(pages, "talks.md")
-    awards = read_file(pages, "awards.md")
-    services = read_file(pages, "services.md")
+    about = read_file(pages / "about.md")
+    research = read_file(pages / "research.md")
+    software = read_file(pages / "software.md")
+    services = read_file(pages / "services.md")
+    skills_text = read_file(pages / "teaching.md")
+    awards = read_file(pages / "awards.md")
+    talks = read_file(pages / "talks.md")
 
     sections = [
         gen_preamble(),
+        gen_profile(about),
+        gen_targets(about),
         gen_education(about),
-        gen_appointments(about),
-        gen_research_areas(research),
-        gen_patents(research),
-        gen_awards(awards),
-        gen_books(research),
+        gen_strengths(about),
+        gen_research(research),
+        gen_methods(research),
         gen_publications(research),
-        gen_grants(research),
-        gen_software(software),
-        gen_teaching(teaching),
-        gen_mentoring(teaching),
-        gen_workshops(talks),
-        gen_invited_talks(talks),
-        gen_conf_proceedings(talks),
-        gen_conf_presentations(talks),
-        gen_services(services),
+        gen_projects(software),
+        gen_internships(services),
+        gen_skills(skills_text),
+        gen_awards(awards),
+        gen_reports(talks),
     ]
 
-    output = "\n\n".join(s for s in sections if s)
-    out_path = base / "cv.typ"
+    output = "\n\n".join(section for section in sections if section)
+    out_path = root / "cv.typ"
     out_path.write_text(output, encoding="utf-8")
     print(f"Generated {out_path} ({len(output):,} bytes)")
 
