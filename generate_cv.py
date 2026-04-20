@@ -3,7 +3,9 @@
 
 from __future__ import annotations
 
+import os
 import re
+import subprocess
 from pathlib import Path
 
 
@@ -125,9 +127,70 @@ def resume_items(items: list[str]) -> str:
     return "#resume-item[\n" + "\n".join(lines) + "\n]"
 
 
+def infer_repo_slug() -> tuple[str, str] | None:
+    """Infer the GitHub owner/repo from Actions env or the local git remote."""
+    github_repository = os.environ.get("GITHUB_REPOSITORY", "").strip()
+    if "/" in github_repository:
+        owner, repo = github_repository.split("/", 1)
+        if owner and repo:
+            return owner, repo
+
+    try:
+        remote = subprocess.check_output(
+            ["git", "config", "--get", "remote.origin.url"],
+            text=True,
+            stderr=subprocess.DEVNULL,
+        ).strip()
+    except (OSError, subprocess.CalledProcessError):
+        return None
+
+    match = re.search(r"github\.com[:/]([^/]+)/(.+?)(?:\.git)?$", remote)
+    if not match:
+        return None
+    return match.group(1), match.group(2)
+
+
+def infer_homepage() -> str:
+    """Infer a stable homepage URL for the CV header."""
+    explicit = os.environ.get("CV_HOMEPAGE", "").strip()
+    if explicit:
+        return explicit.rstrip("/")
+
+    site_url = os.environ.get("SITE_URL", "").strip()
+    if site_url:
+        return site_url.rstrip("/")
+
+    slug = infer_repo_slug()
+    if slug is not None:
+        owner, repo = slug
+        return f"https://{owner}.github.io/{repo}"
+
+    return "https://github.com"
+
+
+def infer_github_user() -> str:
+    """Infer the GitHub username shown in the CV header."""
+    explicit = os.environ.get("CV_GITHUB", "").strip()
+    if explicit:
+        return explicit
+
+    owner = os.environ.get("GITHUB_REPOSITORY_OWNER", "").strip()
+    if owner:
+        return owner
+
+    slug = infer_repo_slug()
+    if slug is not None:
+        owner, _repo = slug
+        return owner
+
+    return "SCAU-Algae"
+
+
 def gen_preamble() -> str:
     """Generate Typst preamble."""
-    return """#import "@preview/modern-cv:0.9.0": *
+    homepage = infer_homepage()
+    github_user = infer_github_user()
+    return f"""#import "@preview/modern-cv:0.9.0": *
 
 #fa-version("6")
 #show "R茅sum茅": "CV"
@@ -138,8 +201,8 @@ def gen_preamble() -> str:
     lastname: "Guang",
     email: "841143092@qq.com",
     phone: "(+86) 186-1702-7258",
-    homepage: "",
-    github: "",
+    homepage: "{homepage}",
+    github: "{github_user}",
     address: "Shenzhen, China",
     positions: (
       "Technical Project Management",

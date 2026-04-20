@@ -127,7 +127,7 @@ If `typst` or `fonts/` are missing, the script will still build the HTML site an
 
 ### Build CV PDF
 
-Prerequisites: Python 3.10+, [Typst](https://typst.app/) CLI, Font Awesome 6 desktop fonts (OTF) in a `fonts/` directory.
+Prerequisites: Python 3.10+, [Typst](https://typst.app/) CLI, and the required CV fonts in a `fonts/` directory.
 
 ```bash
 # Generate Typst source from website markdown files
@@ -141,23 +141,29 @@ The script reads content from `pages/about.md`, `pages/research.md`, `pages/soft
 
 ### Font Setup (for CV)
 
-The CV requires Source Sans Pro (body font) and Font Awesome 6 (icons). Download both into a `fonts/` directory:
+The current `modern-cv` setup expects Source Sans 3, Roboto, a CJK fallback font for Chinese text, and Font Awesome 6 icons. Download them into a `fonts/` directory:
 
 ```bash
 mkdir -p fonts
 
-# Source Sans Pro (body font - ensures consistent spacing)
-curl -sL "https://github.com/adobe-fonts/source-sans-pro/releases/download/3.006R/source-sans-pro-3.006R.zip" -o source-sans-pro.zip
-unzip -o source-sans-pro.zip -d /tmp/ssp
-cp /tmp/ssp/source-sans-pro-3.006R/OTF/*.otf fonts/
+# Source Sans 3 (modern-cv body font)
+curl -sL "https://github.com/adobe-fonts/source-sans/releases/download/3.052R/OTF-source-sans-3.052R.zip" -o source-sans.zip
+unzip -j -o source-sans.zip "*.otf" -d fonts/
+
+# Roboto (modern-cv heading font)
+curl -sL "https://github.com/googlefonts/roboto-2/releases/download/v2.138/roboto-unhinted.zip" -o roboto.zip
+unzip -j -o roboto.zip "*.ttf" -d fonts/
+
+# Source Han Sans SC (Chinese fallback)
+curl -sL "https://github.com/adobe-fonts/source-han-sans/releases/latest/download/SourceHanSansSC.zip" -o source-han-sans-sc.zip
+unzip -j -o source-han-sans-sc.zip "*.otf" -d fonts/
 
 # Font Awesome 6 (icons)
 curl -sL "https://use.fontawesome.com/releases/v6.7.2/fontawesome-free-6.7.2-desktop.zip" -o fa.zip
-unzip -o fa.zip -d /tmp/fa
-cp /tmp/fa/fontawesome-free-6.7.2-desktop/otfs/*.otf fonts/
+unzip -j -o fa.zip "*.otf" -d fonts/
 ```
 
-The `--ignore-system-fonts` flag in the compile command ensures Typst uses only these fonts, which gives consistent icon spacing across environments.
+The `--ignore-system-fonts` flag in the compile command ensures Typst uses only these fonts, which keeps rendering consistent across environments and avoids CI-only font fallback differences.
 
 ### Generate RSS/Atom Feeds
 

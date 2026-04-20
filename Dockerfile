@@ -18,13 +18,15 @@ RUN npm install -g mystmd
 
 # Download fonts
 RUN mkdir -p /fonts \
-    && curl -sL "https://github.com/adobe-fonts/source-sans-pro/releases/download/3.006R/source-sans-pro-3.006R.zip" -o /tmp/ssp.zip \
-    && unzip -o /tmp/ssp.zip -d /tmp/ssp \
-    && cp /tmp/ssp/source-sans-pro-3.006R/OTF/*.otf /fonts/ \
+    && curl -sL "https://github.com/adobe-fonts/source-sans/releases/download/3.052R/OTF-source-sans-3.052R.zip" -o /tmp/source-sans.zip \
+    && unzip -j -o /tmp/source-sans.zip "*.otf" -d /fonts \
+    && curl -sL "https://github.com/googlefonts/roboto-2/releases/download/v2.138/roboto-unhinted.zip" -o /tmp/roboto.zip \
+    && unzip -j -o /tmp/roboto.zip "*.ttf" -d /fonts \
+    && curl -sL "https://github.com/adobe-fonts/source-han-sans/releases/latest/download/SourceHanSansSC.zip" -o /tmp/source-han-sans-sc.zip \
+    && unzip -j -o /tmp/source-han-sans-sc.zip "*.otf" -d /fonts \
     && curl -sL "https://use.fontawesome.com/releases/v6.7.2/fontawesome-free-6.7.2-desktop.zip" -o /tmp/fa.zip \
-    && unzip -o /tmp/fa.zip -d /tmp/fa \
-    && cp /tmp/fa/fontawesome-free-6.7.2-desktop/otfs/*.otf /fonts/ \
-    && rm -rf /tmp/ssp /tmp/fa /tmp/ssp.zip /tmp/fa.zip
+    && unzip -j -o /tmp/fa.zip "*.otf" -d /fonts \
+    && rm -rf /tmp/source-sans.zip /tmp/roboto.zip /tmp/source-han-sans-sc.zip /tmp/fa.zip
 
 WORKDIR /app
 COPY . .
