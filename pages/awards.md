@@ -32,5 +32,7 @@ keywords:
 
 ## 荣誉说明
 
+- 连续两年研究生学业奖学金一等奖，体现了稳定的学术投入、学习能力与成果产出能力。
+- 参与获得地理信息产业优秀工程奖金奖的项目，体现了技术成果在真实行业场景中的应用价值与协作交付能力。
 - 地理信息产业优秀工程奖金奖项目名称为《深圳市土地的市场价格平台建设与应用》。
 - 项目获奖公示链接：<https://mp.weixin.qq.com/s/N5yGEE_vRsSy-aWcEM9sQA?from=groupmessage&isappinstalled=0&scene=1&clicktime=1776610039&enterid=1776610039>
