@@ -43,7 +43,6 @@ keywords:
 ## 图示成果
 
 ::::{grid} 1 1 2 2
-:gutter: 2
 :class: paper-gallery
 
 :::{card} Land, 2024
