@@ -52,7 +52,7 @@ site:
     favicon: fav.ico
     style: custom.css
     folders: true
-  template: .local_templates/book-theme-main/template.yml
+  template: book-theme
   parts:
     primary_sidebar_footer: ''
     footer: |
