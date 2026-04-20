@@ -141,14 +141,14 @@ The script reads content from `pages/about.md`, `pages/research.md`, `pages/soft
 
 ### Font Setup (for CV)
 
-The current `modern-cv` setup expects Source Sans 3, Roboto, and Font Awesome 6 icons in a `fonts/` directory. For Chinese text, use a system CJK font such as Noto CJK.
+The current `modern-cv` setup expects Source Sans Pro, Roboto, and Font Awesome 6 icons in a `fonts/` directory. For Chinese text, use a system CJK font such as Noto CJK.
 
 ```bash
 mkdir -p fonts
 
-# Source Sans 3 (modern-cv body font)
-curl -sL "https://github.com/adobe-fonts/source-sans/releases/download/3.052R/OTF-source-sans-3.052R.zip" -o source-sans.zip
-unzip -j -o source-sans.zip "*.otf" -d fonts/
+# Source Sans Pro (modern-cv body font)
+curl -sL "https://github.com/adobe-fonts/source-sans-pro/releases/download/3.006R/source-sans-pro-3.006R.zip" -o source-sans-pro.zip
+unzip -j -o source-sans-pro.zip "*.otf" -d fonts/
 
 # Roboto (modern-cv heading font)
 curl -sL "https://github.com/googlefonts/roboto-2/releases/download/v2.138/roboto-unhinted.zip" -o roboto.zip

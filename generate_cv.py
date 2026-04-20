@@ -193,7 +193,7 @@ def infer_github_user() -> str:
 
 def infer_profile_picture() -> str:
     """Return the profile picture path used in the generated PDF."""
-    preferred = "pages/images/profile-avatar.png"
+    preferred = "pages/images/profile-avatar.jpg"
     fallback = "figure/CV-头像.png"
     if repo_asset_path(preferred).exists():
         return preferred
