@@ -212,26 +212,28 @@ def gen_preamble() -> str:
 
 #show: resume.with(
   author: (
-    firstname: "",
-    lastname: "李广",
+    firstname: "广",
+    lastname: "李",
     email: "841143092@qq.com",
     phone: "(+86) 186-1702-7258",
     homepage: "{homepage}",
     github: "{github_user}",
-    address: "Shenzhen, China",
+    address: "深圳",
     positions: (
-      "Technical Project Management",
-      "Spatial Data & AI",
+      "技术项目管理",
+      "空间数据分析",
+      "GeoAI 建模",
     ),
     custom: (),
   ),
   profile-picture: image("{profile_picture}"),
   date: datetime.today().display(),
-  language: "en",
+  language: "zh",
   paper-size: "us-letter",
   accent-color: default-accent-color,
   colored-headers: true,
   show-footer: true,
+  use-smallcaps: false,
 )
 
 #set heading(bookmarked: true)
