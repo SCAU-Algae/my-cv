@@ -1,7 +1,7 @@
 version: 1
 project:
   title: 李广
-  description: 李广的个人简历网站，聚焦 AI 城市空间分析、住宅用地价格评估、空间数据处理与技术项目管理。
+  description: 李广的个人简历网站，聚焦 GeoAI、城市空间数据、土地价格评估与技术项目交付。
   # thumbnail: images/profile-thumbnail.webp
   # authors:
   #   - name: 李广
@@ -11,9 +11,10 @@ project:
   #       - South China Agricultural University
   copyright: '2026'
   keywords:
-    - AI
+    - GeoAI
     - 空间数据
     - 深度学习
+    - 土地价格评估
     - 技术项目管理
     - WebGIS
   exclude:
@@ -36,9 +37,11 @@ project:
     - file: index.md
     - file: pages/about.md
     - file: pages/software.md
-    - file: pages/services.md
     - file: pages/research.md
+    - file: pages/services.md
+    - file: pages/teaching.md
     - file: pages/awards.md
+    - file: pages/talks.md
     - file: pages/contact.md
     - pattern: blog/*.md
       hidden: true
