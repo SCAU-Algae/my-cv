@@ -7,7 +7,6 @@ authors:
     orcid: 0000-0001-5437-4073
     url: https://gishub.org
 description: A GitHub template that bundles MyST Markdown, GitHub Pages deployment, Netlify PR previews, and pre-commit hooks into a ready-to-use starting point.
-thumbnail: https://img.youtube.com/vi/wj0kAthmusA/maxresdefault.jpg
 tags:
   - MyST Markdown
   - GitHub Template

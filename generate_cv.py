@@ -193,11 +193,14 @@ def infer_github_user() -> str:
 
 def infer_profile_picture() -> str:
     """Return the profile picture path used in the generated PDF."""
-    preferred = "pages/images/profile-avatar.jpg"
-    fallback = "figure/CV-头像.png"
+    preferred = "pages/images/profile-avatar-square.png"
+    fallback = "pages/images/profile-avatar.jpg"
+    legacy = "figure/CV-头像.png"
     if repo_asset_path(preferred).exists():
         return preferred
-    return fallback
+    if repo_asset_path(fallback).exists():
+        return fallback
+    return legacy
 
 
 def gen_preamble() -> str:
@@ -226,7 +229,7 @@ def gen_preamble() -> str:
     ),
     custom: (),
   ),
-  profile-picture: image("{profile_picture}"),
+  profile-picture: image("{profile_picture}", width: 4cm, height: 4cm, fit: "cover"),
   date: datetime.today().display(),
   language: "zh",
   paper-size: "us-letter",

@@ -7,7 +7,6 @@ authors:
     orcid: 0000-0001-5437-4073
     url: https://gishub.org
 description: A step-by-step tutorial on writing journal articles in MyST Markdown with automatic PDF generation and website deployment using a GitHub template.
-thumbnail: https://img.youtube.com/vi/iwL-s7aPNYQ/maxresdefault.jpg
 tags:
   - MyST Markdown
   - GitHub Pages

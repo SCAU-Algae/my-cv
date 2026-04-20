@@ -215,9 +215,62 @@
   object-fit: contain;
 }
 
+.experience-card {
+  margin: 0.55rem 0 1.6rem;
+  padding: 1.2rem 1.35rem;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.96) 0%, #ffffff 100%);
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.08);
+}
+
+.experience-card p,
+.experience-card ul {
+  margin-top: 0;
+}
+
+.experience-card > p:last-child,
+.experience-card > ul:last-child {
+  margin-bottom: 0;
+}
+
+.experience-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem 1.25rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid rgba(37, 99, 235, 0.12);
+}
+
+.experience-meta p {
+  margin: 0;
+}
+
+.experience-card strong {
+  color: #1d4ed8;
+}
+
+.experience-card ul {
+  padding-left: 1.2rem;
+}
+
+.experience-card li + li {
+  margin-top: 0.5rem;
+}
+
 @media (max-width: 900px) {
   .cv-table-wrap table {
     min-width: 720px;
     table-layout: auto;
+  }
+
+  .experience-card {
+    padding: 1rem 1rem 1.1rem;
+  }
+
+  .experience-meta {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
   }
 }
