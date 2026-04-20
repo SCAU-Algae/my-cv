@@ -212,8 +212,8 @@ def gen_preamble() -> str:
 
 #show: resume.with(
   author: (
-    firstname: "Li",
-    lastname: "Guang",
+    firstname: "",
+    lastname: "李广",
     email: "841143092@qq.com",
     phone: "(+86) 186-1702-7258",
     homepage: "{homepage}",
@@ -225,7 +225,7 @@ def gen_preamble() -> str:
     ),
     custom: (),
   ),
-  profile-picture: "{profile_picture}",
+  profile-picture: image("{profile_picture}"),
   date: datetime.today().display(),
   language: "en",
   paper-size: "us-letter",
