@@ -127,6 +127,11 @@ def resume_items(items: list[str]) -> str:
     return "#resume-item[\n" + "\n".join(lines) + "\n]"
 
 
+def repo_asset_path(*parts: str) -> Path:
+    """Resolve an asset path relative to the repository root."""
+    return Path(__file__).parent.joinpath(*parts)
+
+
 def infer_repo_slug() -> tuple[str, str] | None:
     """Infer the GitHub owner/repo from Actions env or the local git remote."""
     github_repository = os.environ.get("GITHUB_REPOSITORY", "").strip()
@@ -186,10 +191,20 @@ def infer_github_user() -> str:
     return "SCAU-Algae"
 
 
+def infer_profile_picture() -> str:
+    """Return the profile picture path used in the generated PDF."""
+    preferred = "pages/images/profile-avatar.png"
+    fallback = "figure/CV-头像.png"
+    if repo_asset_path(preferred).exists():
+        return preferred
+    return fallback
+
+
 def gen_preamble() -> str:
     """Generate Typst preamble."""
     homepage = infer_homepage()
     github_user = infer_github_user()
+    profile_picture = infer_profile_picture()
     return f"""#import "@preview/modern-cv:0.9.0": *
 
 #fa-version("6")
@@ -210,7 +225,7 @@ def gen_preamble() -> str:
     ),
     custom: (),
   ),
-  profile-picture: "pages/images/profile-avatar.png",
+  profile-picture: "{profile_picture}",
   date: datetime.today().display(),
   language: "en",
   paper-size: "us-letter",
@@ -257,6 +272,8 @@ def gen_education(about: str) -> str:
     if not rows:
         return ""
     lines = ["= 教育经历\n"]
+    if repo_asset_path("figure", "SCAU.png").exists():
+        lines.append('#image("figure/SCAU.png", width: 1.35cm)\n')
     for row in rows:
         lines.append(
             "#resume-entry(\n"

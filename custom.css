@@ -2,11 +2,6 @@
   display: none !important;
 }
 
-table td:first-child,
-table th:first-child {
-  white-space: nowrap;
-}
-
 #giscus-comments {
   max-width: 100% !important;
   padding: 0 !important;
@@ -115,4 +110,114 @@ table th:first-child {
   border-radius: 12px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.cv-table-wrap {
+  width: 100%;
+  margin: 1rem 0 1.5rem;
+  overflow-x: auto;
+}
+
+.cv-table-wrap table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.cv-table-wrap th,
+.cv-table-wrap td {
+  white-space: normal !important;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  line-height: 1.55;
+}
+
+.cv-table-targets th:nth-child(1),
+.cv-table-targets td:nth-child(1) {
+  width: 18%;
+}
+
+.cv-table-targets th:nth-child(2),
+.cv-table-targets td:nth-child(2) {
+  width: 12%;
+}
+
+.cv-table-targets th:nth-child(3),
+.cv-table-targets td:nth-child(3) {
+  width: 16%;
+}
+
+.cv-table-targets th:nth-child(4),
+.cv-table-targets td:nth-child(4) {
+  width: 54%;
+}
+
+.cv-table-education th:nth-child(1),
+.cv-table-education td:nth-child(1) {
+  width: 18%;
+}
+
+.cv-table-education th:nth-child(2),
+.cv-table-education td:nth-child(2) {
+  width: 18%;
+}
+
+.cv-table-education th:nth-child(3),
+.cv-table-education td:nth-child(3) {
+  width: 20%;
+}
+
+.cv-table-education th:nth-child(4),
+.cv-table-education td:nth-child(4) {
+  width: 44%;
+}
+
+.cv-table-projects th:nth-child(1),
+.cv-table-projects td:nth-child(1) {
+  width: 34%;
+}
+
+.cv-table-projects th:nth-child(2),
+.cv-table-projects td:nth-child(2) {
+  width: 9%;
+}
+
+.cv-table-projects th:nth-child(3),
+.cv-table-projects td:nth-child(3) {
+  width: 9%;
+}
+
+.cv-table-projects th:nth-child(4),
+.cv-table-projects td:nth-child(4) {
+  width: 12%;
+}
+
+.cv-table-projects th:nth-child(5),
+.cv-table-projects td:nth-child(5) {
+  width: 36%;
+}
+
+.cv-table-awards th:nth-child(1),
+.cv-table-awards td:nth-child(1) {
+  width: 18%;
+}
+
+.cv-table-awards th:nth-child(2),
+.cv-table-awards td:nth-child(2) {
+  width: 82%;
+}
+
+.school-logo {
+  display: block;
+  width: min(100%, 88px);
+  height: auto;
+  margin: 0 auto 0.75rem auto;
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+  .cv-table-wrap table {
+    min-width: 720px;
+    table-layout: auto;
+  }
 }

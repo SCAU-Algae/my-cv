@@ -34,9 +34,9 @@ keywords:
 ## 论文发表
 
 - [Lin, Chuan; **Li, Guang**; Zhou, Zegen; Li, Jia; Wang, Hongmei; Liu, Yilun. *Enhancing Urban Land Use Identification Using Urban Morphology*. *Land*, 2024, 13(6): 761.](https://www.mdpi.com/2073-445X/13/6/761) 共同第一作者，SSCI 中科院二区。
-- [Lin, Chuan; Huang, Yongfang; Liu, Yilun; Li, Guang; Zhou, Zegen; Zhong, Yuanjun; Wang, Hongmei; Li, Jinggang. *Identifying underutilized land by eXplainable artificial intelligence and geographic similarity ensemble model with limited samples*. *Habitat International*, 2025, Volume 163.](https://www.sciencedirect.com/science/article/abs/pii/S019739752500219X?via%3Dihub) 第四作者，SSCI 中科院一区 TOP。
-- [Lin, Chuan; Liu, Yilun; Yuan, Zhongyou; Wang, Hongmei; Li, Guang; Zhou, Zegen; Wang, Han; An, Xinyue. *Harmonizing stakeholder interests in urban renewal: A novel planning approach using explainable machine learning and spatial optimization*. *Land Use Policy*, 2025, Volume 155.](https://www.sciencedirect.com/science/article/abs/pii/S026483772500122X?via%3Dihub) 第五作者，SSCI 中科院一区 TOP。
-- [刘轶伦，林川，陈桥驿，李广，黄永芳，王红梅，李景刚.《耦合可解释机器学习与地理相似性推理的城镇低效用地识别: 以广州市为例》.《中国土地科学》, 2025, 39(11): 134-147.](https://www.chinalandscience.com.cn/zgtdkx/article/abstract/20250511) 第四作者，中文核心。
+- [Lin, Chuan; Huang, Yongfang; Liu, Yilun; **Li, Guang**; Zhou, Zegen; Zhong, Yuanjun; Wang, Hongmei; Li, Jinggang. *Identifying underutilized land by eXplainable artificial intelligence and geographic similarity ensemble model with limited samples*. *Habitat International*, 2025, Volume 163.](https://www.sciencedirect.com/science/article/abs/pii/S019739752500219X?via%3Dihub) 第四作者，SSCI 中科院一区 TOP。
+- [Lin, Chuan; Liu, Yilun; Yuan, Zhongyou; Wang, Hongmei; **Li, Guang**; Zhou, Zegen; Wang, Han; An, Xinyue. *Harmonizing stakeholder interests in urban renewal: A novel planning approach using explainable machine learning and spatial optimization*. *Land Use Policy*, 2025, Volume 155.](https://www.sciencedirect.com/science/article/abs/pii/S026483772500122X?via%3Dihub) 第五作者，SSCI 中科院一区 TOP。
+- [刘轶伦，林川，陈桥驿，**李广**，黄永芳，王红梅，李景刚.《耦合可解释机器学习与地理相似性推理的城镇低效用地识别: 以广州市为例》.《中国土地科学》, 2025, 39(11): 134-147.](https://www.chinalandscience.com.cn/zgtdkx/article/abstract/20250511) 第四作者，中文核心。
 
 ---
 
