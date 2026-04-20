@@ -10,10 +10,10 @@ keywords:
 
 # 实习经历
 
-### 深圳市自然资源和不动产评估发展研究中心
-
-:::{div}
+::::{div}
 :class: experience-card
+
+### 深圳市自然资源和不动产评估发展研究中心
 
 :::{div}
 :class: experience-meta
@@ -37,12 +37,12 @@ keywords:
 - 完成项目研究报告、工作报告的撰写，推动项目顺利结题。
 - 参与《深圳市土地的市场价格平台建设与应用》项目报奖材料整理，项目最终获地理信息产业优秀工程奖金奖。
 
-:::
+::::
+
+::::{div}
+:class: experience-card
 
 ### 广东国地规划科技股份有限公司
-
-:::{div}
-:class: experience-card
 
 :::{div}
 :class: experience-meta
@@ -65,4 +65,4 @@ keywords:
 - 分析与评价中山市土地入市政策效能。
 - 分析与评价乳源市入市潜力地块效能。
 
-:::
+::::
