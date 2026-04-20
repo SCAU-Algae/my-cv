@@ -48,6 +48,11 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install system fonts for CJK fallback
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends fonts-noto-cjk
+
       - name: Install Python dependencies
         run: pip install feedgen pyyaml
 
@@ -66,9 +71,6 @@ jobs:
           # Roboto (modern-cv heading font)
           curl -sL "https://github.com/googlefonts/roboto-2/releases/download/v2.138/roboto-unhinted.zip" -o roboto.zip
           unzip -j -o roboto.zip "*.ttf" -d fonts/
-          # Source Han Sans SC (CJK fallback for Chinese CV content)
-          curl -sL "https://github.com/adobe-fonts/source-han-sans/releases/latest/download/SourceHanSansSC.zip" -o source-han-sans-sc.zip
-          unzip -j -o source-han-sans-sc.zip "*.otf" -d fonts/
           # Font Awesome 6 (icons)
           curl -sL "https://use.fontawesome.com/releases/v6.7.2/fontawesome-free-6.7.2-desktop.zip" -o fa.zip
           unzip -j -o fa.zip "*.otf" -d fonts/
@@ -77,7 +79,7 @@ jobs:
         run: python generate_cv.py
 
       - name: Compile CV PDF
-        run: typst compile cv.typ cv.pdf --font-path ./fonts --ignore-system-fonts
+        run: typst compile cv.typ cv.pdf --font-path ./fonts
 
       - name: Build HTML Assets
         # Remove BASE_URL if using a custom domain (CNAME)

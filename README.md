@@ -133,15 +133,15 @@ Prerequisites: Python 3.10+, [Typst](https://typst.app/) CLI, and the required C
 # Generate Typst source from website markdown files
 python generate_cv.py
 
-# Compile to PDF (with custom fonts and icons)
-typst compile cv.typ cv.pdf --font-path ./fonts --ignore-system-fonts
+# Compile to PDF (with custom fonts and system CJK fallback)
+typst compile cv.typ cv.pdf --font-path ./fonts
 ```
 
 The script reads content from `pages/about.md`, `pages/research.md`, `pages/software.md`, `pages/teaching.md`, `pages/talks.md`, `pages/awards.md`, and `pages/services.md`, then generates a `cv.typ` file with all CV sections.
 
 ### Font Setup (for CV)
 
-The current `modern-cv` setup expects Source Sans 3, Roboto, a CJK fallback font for Chinese text, and Font Awesome 6 icons. Download them into a `fonts/` directory:
+The current `modern-cv` setup expects Source Sans 3, Roboto, and Font Awesome 6 icons in a `fonts/` directory. For Chinese text, use a system CJK font such as Noto CJK.
 
 ```bash
 mkdir -p fonts
@@ -154,16 +154,19 @@ unzip -j -o source-sans.zip "*.otf" -d fonts/
 curl -sL "https://github.com/googlefonts/roboto-2/releases/download/v2.138/roboto-unhinted.zip" -o roboto.zip
 unzip -j -o roboto.zip "*.ttf" -d fonts/
 
-# Source Han Sans SC (Chinese fallback)
-curl -sL "https://github.com/adobe-fonts/source-han-sans/releases/latest/download/SourceHanSansSC.zip" -o source-han-sans-sc.zip
-unzip -j -o source-han-sans-sc.zip "*.otf" -d fonts/
-
 # Font Awesome 6 (icons)
 curl -sL "https://use.fontawesome.com/releases/v6.7.2/fontawesome-free-6.7.2-desktop.zip" -o fa.zip
 unzip -j -o fa.zip "*.otf" -d fonts/
 ```
 
-The `--ignore-system-fonts` flag in the compile command ensures Typst uses only these fonts, which keeps rendering consistent across environments and avoids CI-only font fallback differences.
+On Ubuntu or GitHub Actions, install `fonts-noto-cjk` so Typst can render Chinese content correctly:
+
+```bash
+sudo apt-get update
+sudo apt-get install -y fonts-noto-cjk
+```
+
+This project now allows system fonts during Typst compilation so Chinese content can reliably fall back to an installed CJK font.
 
 ### Generate RSS/Atom Feeds
 

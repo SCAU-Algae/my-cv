@@ -63,7 +63,6 @@ def try_build_pdf() -> bool:
             "cv.pdf",
             "--font-path",
             str(FONTS_DIR),
-            "--ignore-system-fonts",
         ]
     )
     return True
