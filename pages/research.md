@@ -10,15 +10,14 @@ keywords:
 
 # 研究与论文
 
-我的研究工作围绕城市土地与空间数据问题展开，重点关注“数据组织 - AI 建模 - 解释分析 - 成果落地”的完整链条，尤其关注在复杂、异质甚至小样本条件下，如何把研究方法转化为可复现、可沟通、可落地的方案。对博士申请而言，这体现了我的研究问题意识；对就业岗位而言，这意味着我能把模型真正转化为可交付的成果。
+我的研究兴趣主要集中在地理人工智能、城市时空智能和土地资源管理的交叉处。相比单纯追求模型精度，我更关心模型能否理解空间关系、解释地理差异，并在土地价格评估、城市更新和低效用地识别等真实问题中发挥作用。
 
 ## 研究方向
 
-- 基于遥感与 GIS 的城市土地变化动态监测
-- 城市空间大数据智能感知与 GeoAI
-- 城市住宅用地市场价格动态评估
-- 自然资源与环境管理决策支持与政策评估
-- 城市更新与城镇低效用地识别、多尺度空间优化
+- 地理人工智能与地理大模型：关注 POI、遥感影像、文本、轨迹与时序数据等多源地理数据的表征学习。
+- 城市时空智能与空间关系建模：研究地理邻近性、空间异质性、边界效应和尺度差异等规律如何进入机器学习与深度学习模型。
+- 城市土地价值建模与可解释预测：面向土地价格评估、城市更新和低效用地识别，构建更能解释空间差异的预测模型。
+- 空间治理与决策支持：将 GeoAI 方法应用于城市规划、资源管理、生态环境监测和公共安全等场景。
 
 ---
 
@@ -33,7 +32,7 @@ keywords:
 
 ## 论文发表
 
-以下论文体现了我在问题定义、模型设计、实验验证、结果解释与学术写作方面的积累，这些能力同样对应到就业场景中的建模、分析与表达能力。
+下面列出目前已发表或参与发表的代表性论文，主要围绕城市土地利用识别、低效用地识别、城市更新和空间优化等方向。
 
 - [Lin, Chuan; **Li, Guang**; Zhou, Zegen; Li, Jia; Wang, Hongmei; Liu, Yilun. *Enhancing Urban Land Use Identification Using Urban Morphology*. *Land*, 2024, 13(6): 761.](https://www.mdpi.com/2073-445X/13/6/761) 共同第一作者，SSCI 中科院二区。
 - [Lin, Chuan; Huang, Yongfang; Liu, Yilun; **Li, Guang**; Zhou, Zegen; Zhong, Yuanjun; Wang, Hongmei; Li, Jinggang. *Identifying underutilized land by eXplainable artificial intelligence and geographic similarity ensemble model with limited samples*. *Habitat International*, 2025, Volume 163.](https://www.sciencedirect.com/science/article/abs/pii/S019739752500219X?via%3Dihub) 第四作者，SSCI 中科院一区 TOP。
@@ -52,7 +51,7 @@ keywords:
 :alt: Land 2024 论文图示
 :class: paper-figure
 ```
-城市土地利用识别研究，负责三维空间纵向识别算法设计、精度验证与论文撰写，体现了从方法构建到结果论证的完整能力。
+城市土地利用识别研究，主要负责三维空间纵向识别算法设计、精度验证与论文撰写。
 
 [查看论文](https://www.mdpi.com/2073-445X/13/6/761)
 :::
@@ -62,7 +61,7 @@ keywords:
 :alt: Habitat International 2025 论文图示
 :class: paper-figure
 ```
-聚焦低效用地识别，结合可解释人工智能与地理相似性集成模型处理小样本问题，体现了在受限数据条件下的建模与解释能力。
+聚焦低效用地识别，尝试用可解释人工智能与地理相似性集成模型处理小样本问题。
 
 [查看论文](https://www.sciencedirect.com/science/article/abs/pii/S019739752500219X?via%3Dihub)
 :::
@@ -72,7 +71,7 @@ keywords:
 :alt: Land Use Policy 2025 论文图示
 :class: paper-figure
 ```
-围绕城市更新中的多方利益协调，使用可解释机器学习与空间优化构建规划方案，体现了从分析模型走向决策支撑的能力。
+围绕城市更新中的多方利益协调，使用可解释机器学习与空间优化构建规划方案。
 
 [查看论文](https://www.sciencedirect.com/science/article/abs/pii/S026483772500122X?via%3Dihub)
 :::
@@ -82,7 +81,7 @@ keywords:
 :alt: 中国土地科学 2025 论文图示
 :class: paper-figure
 ```
-面向广州市城镇低效用地识别，耦合可解释机器学习与地理相似性推理方法，体现了方法迁移与中文学术表达能力。
+面向广州市城镇低效用地识别，耦合可解释机器学习与地理相似性推理方法。
 
 [查看论文](https://www.chinalandscience.com.cn/zgtdkx/article/abstract/20250511)
 :::
