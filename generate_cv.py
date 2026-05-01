@@ -240,7 +240,9 @@ def gen_preamble() -> str:
 )
 
 #set heading(bookmarked: true)
-#set document(title: "Li Guang - CV")"""
+#set document(title: "Li Guang - CV")
+// modern-cv's header row is slightly shorter than the 4cm avatar.
+#v(18pt)"""
 
 
 def gen_profile(about: str) -> str:
